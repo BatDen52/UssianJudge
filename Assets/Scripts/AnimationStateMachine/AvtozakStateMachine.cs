@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AvtozakStateMachine : StateMachineBehaviour
 {
-    [SerializeField] private int _a;
+    [SerializeField] private bool _isOutcoming;
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -18,6 +18,9 @@ public class AvtozakStateMachine : StateMachineBehaviour
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.SetBool("IsOpen", true);
+        if(_isOutcoming)
+            animator.SetBool("IsOpen", false);
+        else
+            animator.SetBool("IsOpen", true);
     }
 }

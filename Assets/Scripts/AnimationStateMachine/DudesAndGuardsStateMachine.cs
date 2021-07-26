@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DudesAndGuardsStateMachine : StateMachineBehaviour
 {
+    [SerializeField] private bool _isOutcoming;
+
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
 
@@ -16,6 +18,9 @@ public class DudesAndGuardsStateMachine : StateMachineBehaviour
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.SetBool("IsCame", true);
+        if (_isOutcoming)
+            animator.SetBool("IsCame", false);
+        else
+            animator.SetBool("IsCame", true);
     }
 }

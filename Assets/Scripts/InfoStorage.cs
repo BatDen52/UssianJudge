@@ -14,12 +14,14 @@ public class InfoStorage : MonoBehaviour
     private List<string> _names;
     private List<string> _surnames;
     private List<string> _cases;
-    private List<string> _articles;
+    private List<Article> _articles;
 
     private string _namesFileTitle = "names";
     private string _surnamesFileTitle = "surnames";
     private string _casesFileTitle = "cases";
     private string _articlesFileTitle = "articles";
+
+    public int ArticlesCount => _articles.Count;
 
     private void Awake()
     {
@@ -30,7 +32,8 @@ public class InfoStorage : MonoBehaviour
         mytxtData = (TextAsset)Resources.Load(_casesFileTitle);
         _cases = JsonConvert.DeserializeObject<List<string>>(mytxtData.text);
         mytxtData = (TextAsset)Resources.Load(_articlesFileTitle);
-        _articles = JsonConvert.DeserializeObject<List<string>>(mytxtData.text);
+
+        _articles = JsonConvert.DeserializeObject<List<Article>>(mytxtData.text);
 
         _buttonNext.enabled = true;
     }
@@ -41,10 +44,15 @@ public class InfoStorage : MonoBehaviour
 
     public string GetRandomCase() => _cases[Random.Range(0, _cases.Count)];
 
-    public string GetRandomArticle() => _articles[Random.Range(0, _articles.Count)];
-
     public string GetRandomBirthday() => $"{Random.Range(1, 29)}.{Random.Range(1, 13)}.{Random.Range(80, 22)}";
 
+    public Article TryGetArticle(int index)
+    {
+        if (index >= 0 && index < _articles.Count)
+            return _articles[index];
+        else
+            return null;
+    }
     public Sprite GetRandomSkin(out Sprite photo)
     {
         int dudeIndex = Random.Range(0, _skins.Count);

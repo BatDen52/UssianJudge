@@ -12,6 +12,7 @@ public class Passport : MonoBehaviour
     [SerializeField] private TMP_Text _surname;
     [SerializeField] private TMP_Text _birthday;
     [SerializeField] private SpriteRenderer _photo;
+    [SerializeField] private TextSizeController _textController;
 
     public void Init(string name, string surname, string birthday, Sprite photo)
     {
@@ -19,6 +20,8 @@ public class Passport : MonoBehaviour
         _surname.text = surname;
         _birthday.text = birthday;
         _photo.sprite = photo;
+
+        _textController.TextSizeChange(new TMP_Text[] { _name, _surname,_birthday});
     }
 
     public void Hide()
